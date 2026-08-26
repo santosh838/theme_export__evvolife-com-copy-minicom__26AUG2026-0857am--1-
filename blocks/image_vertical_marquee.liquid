@@ -1,0 +1,231 @@
+{%- assign bst = block.settings -%}
+{% style %}
+  #shopify-section-{{ section.id }} .block-marquee-item {
+    animation-duration: {{ bst.time }}s;
+  }
+  #shopify-section-{{ section.id }} .image-block {
+    border-radius: {{ bst.image_corner }}px;
+    transform: translateZ(0);
+    overflow: hidden;
+  }
+  {% if bst.show_overlay %}
+    #shopify-section-{{ section.id }} .show-overlay:before {
+      background: linear-gradient(to bottom, {{ bst.color_overlay }} 20%, rgba({{ bst.color_overlay | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 0) 100%);
+    }
+    #shopify-section-{{ section.id }} .show-overlay:after {
+      background: linear-gradient(to top, {{ bst.color_overlay }} 20%, rgba({{ bst.color_overlay | color_to_rgb | remove: 'rgb(' | remove: 'rgba(' | remove: ')' | remove: ', 0.0' }}, 0) 100%);
+    }
+  {% endif %}
+  @media (min-width: 576px) {
+    #shopify-section-{{ section.id }} .image-vertical-marquee {
+      height: {{ bst.height_sm }}px;
+    }
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .image-vertical-marquee {
+      height: {{ bst.height_md }}px;
+    }
+  }
+  @media (min-width: 992px) {
+    #shopify-section-{{ section.id }} .image-vertical-marquee {
+      height: {{ bst.height_lg }}px;
+    }
+  }
+  @media (min-width: 1200px) {
+    #shopify-section-{{ section.id }} .image-vertical-marquee {
+      height: {{ bst.height_xl }}px;
+    }
+  }
+  @media (max-width: 575px) {
+    #shopify-section-{{ section.id }} .image-vertical-marquee {
+      height: {{ bst.height_xs }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="theme-blocks-item image-vertical-marquee-block nov-marquee" style="--mt-xl: {{ bst.mt_xl }}px; --mt-lg: {{ bst.mt_lg }}px; --mt-md: {{ bst.mt_md }}px; --mt-sm: {{ bst.mt_sm }}px; --mb-xl: {{ bst.mb_xl }}px; --mb-lg: {{ bst.mb_lg }}px; --mb-md: {{ bst.mb_md }}px; --mb-sm: {{ bst.mb_sm }}px;">
+  <div class="image-vertical-marquee{% if bst.show_overlay %} show-overlay{% endif %} row spacing-{{ bst.spacing }} spacing-md-{{ bst.spacing_md }}">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+  
+{% schema %}
+  {
+    "name": "Image Vertical Marquee",
+    "tag": null,
+    "blocks": [
+      { "type": "_image_vertical_marquee_item" }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Marquee Style"
+      },
+      {
+        "type": "range",
+        "id": "time",
+        "min": 5,
+        "max": 60,
+        "step": 1,
+        "unit": "s",
+        "label": "Slide run time",
+        "default": 10
+      },
+      {
+        "type": "checkbox",
+        "id": "show_overlay",
+        "label": "Show overlay",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "color_overlay",
+        "label": "Background",
+        "default": "#fff",
+        "visible_if": "{{ block.settings.show_overlay }}"
+      },
+      {
+        "type": "header",
+        "content": "Height"
+      },
+      {
+        "type": "number",
+        "id": "height_xl",
+        "label": "Large laptop",
+        "default": 780,
+        "info": "Breakpoint 1200px"
+      },
+      {
+        "type": "number",
+        "id": "height_lg",
+        "label": "Laptop",
+        "default": 600,
+        "info": "Breakpoint 992px"
+      },
+      {
+        "type": "number",
+        "id": "height_md",
+        "label": "Tablet",
+        "default": 500,
+        "info": "Breakpoint 768px"
+      },
+      {
+        "type": "number",
+        "id": "height_sm",
+        "label": "Large mobile",
+        "default": 300,
+        "info": "Breakpoint 576px"
+      },
+      {
+        "type": "number",
+        "id": "height_xs",
+        "label": "Mobile",
+        "default": 250
+      },
+      {
+        "type": "header",
+        "content": "Spacing item"
+      },
+      {
+        "type": "range",
+        "id": "spacing",
+        "label": "Spacing",
+        "default": 10,
+        "min": 0,
+        "max": 100,
+        "unit": "px",
+        "info": "Breakpoint 992px ↑"
+      },
+      {
+        "type": "range",
+        "id": "spacing_md",
+        "label": "Spacing Tablet",
+        "default": 10,
+        "min": 0,
+        "max": 100,
+        "unit": "px",
+        "info": "Breakpoint 768px ↓"
+      },
+      {
+        "type": "header",
+        "content": "Image Style"
+      },
+      {
+        "type": "range",
+        "id": "image_corner",
+        "label": "Image Corner",
+        "default": 5,
+        "min": 0,
+        "max": 50,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Spacing Top (px)"
+      },
+      {
+        "type": "number",
+        "id": "mt_xl",
+        "label": "Large laptop",
+        "default": 30,
+        "info": "Breakpoint 1200px"
+      },
+      {
+        "type": "number",
+        "id": "mt_lg",
+        "label": "Laptop",
+        "default": 30,
+        "info": "Breakpoint 992px"
+      },
+      {
+        "type": "number",
+        "id": "mt_md",
+        "label": "Tablet",
+        "default": 30,
+        "info": "Breakpoint 768px"
+      },
+      {
+        "type": "number",
+        "id": "mt_sm",
+        "label": "Mobile",
+        "default": 30
+      },
+      {
+        "type": "header",
+        "content": "Spacing Bottom (px)"
+      },
+      {
+        "type": "number",
+        "id": "mb_xl",
+        "label": "Large laptop",
+        "default": 30,
+        "info": "Breakpoint 1200px"
+      },
+      {
+        "type": "number",
+        "id": "mb_lg",
+        "label": "Laptop",
+        "default": 30,
+        "info": "Breakpoint 992px"
+      },
+      {
+        "type": "number",
+        "id": "mb_md",
+        "label": "Tablet",
+        "default": 30,
+        "info": "Breakpoint 768px"
+      },
+      {
+        "type": "number",
+        "id": "mb_sm",
+        "label": "Mobile",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image Vertical Marquee"
+      }
+    ]
+  }
+{% endschema %}

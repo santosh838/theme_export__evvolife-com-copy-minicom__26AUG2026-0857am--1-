@@ -1,0 +1,251 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Header 4",
+  "type": "header",
+  "sections": {
+    "header": {
+      "type": "nov-header-4",
+      "blocks": {
+        "f5a5ac2b-38b6-4567-8a55-ca3cb5239f61": {
+          "type": "text",
+          "settings": {
+            "title": "Collections",
+            "desc": "",
+            "novmenu_menu_enable": true,
+            "show_title": true,
+            "novmenu_xl": "col-xl-8",
+            "submenu_xl": "col-xl-4",
+            "banner_br": 5,
+            "novmenu_banner_enable1": true,
+            "banner_xl_1": "col-xl-2",
+            "novmenu_banner1": "shopify://shop_images/menu-img.jpg",
+            "novmenu_banner_link1": "",
+            "class_bn1": "",
+            "novmenu_banner_enable2": false,
+            "banner_xl_2": "col-xl-4",
+            "novmenu_banner_link2": "",
+            "class_bn2": "",
+            "novmenu_banner_enable3": false,
+            "banner_xl_3": "col-xl-4",
+            "novmenu_banner_link3": "",
+            "class_bn3": "",
+            "collection_enable": true,
+            "collection_xl": "col-xl-2",
+            "name_collec_1": "Bedroom",
+            "link_1": "shopify://collections/bedroom",
+            "name_collec_2": "Dining Room",
+            "link_2": "shopify://collections/dining-room",
+            "name_collec_3": "Home Decor",
+            "link_3": "shopify://collections/home-decor",
+            "name_collec_4": "Office",
+            "link_4": "shopify://collections/office",
+            "name_collec_5": "Living Room",
+            "link_5": "shopify://collections/living-room",
+            "product_enable": false,
+            "product_xl": "col-xl-3",
+            "title_product": "Featured Product",
+            "product_list": [],
+            "autoplay": true
+          }
+        },
+        "text_bfy4yP": {
+          "type": "text",
+          "settings": {
+            "title": "Products",
+            "desc": "",
+            "novmenu_menu_enable": true,
+            "show_title": true,
+            "novmenu_xl": "col-xl-9",
+            "submenu_xl": "col-xl-4",
+            "banner_br": 5,
+            "novmenu_banner_enable1": false,
+            "banner_xl_1": "col-xl-4",
+            "novmenu_banner_link1": "",
+            "class_bn1": "",
+            "novmenu_banner_enable2": false,
+            "banner_xl_2": "col-xl-4",
+            "novmenu_banner_link2": "",
+            "class_bn2": "",
+            "novmenu_banner_enable3": false,
+            "banner_xl_3": "col-xl-4",
+            "novmenu_banner_link3": "",
+            "class_bn3": "",
+            "collection_enable": false,
+            "collection_xl": "col-xl-3",
+            "name_collec_1": "Best Sellers",
+            "link_1": "",
+            "name_collec_2": "New Arrival",
+            "link_2": "",
+            "name_collec_3": "Top Trending",
+            "link_3": "",
+            "name_collec_4": "Top Trending",
+            "link_4": "",
+            "name_collec_5": "Denim Collection",
+            "link_5": "",
+            "product_enable": true,
+            "product_xl": "col-xl-2",
+            "title_product": "Featured Product",
+            "product_list": [
+              "compact-mini-plant-pot-for-desk-or-shelf-display",
+              "large-soft-cotton-woven-clothes-basket-for-storage",
+              "modern-beige-armchair-with-wooden-legs-style",
+              "modern-low-profile-swivel-sofa-with-soft-seat",
+              "modern-single-sofa-chair-for-stylish-living-room"
+            ],
+            "autoplay": true
+          }
+        },
+        "icon_menu_g7Fb8X": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Living Room Furniture",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/living-room_2829177.svg"
+          }
+        },
+        "icon_menu_aH3cXC": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Bedroom Furniture",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/bedroom_10813343.svg"
+          }
+        },
+        "icon_menu_aiXAhL": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Dining Room Furniture",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/dinner-table_9052732.svg"
+          }
+        },
+        "icon_menu_Hg8R97": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Office Furniture",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/desk_6310812.svg"
+          }
+        },
+        "icon_menu_BaMttk": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Outdoor Furniture",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/table_6796386.svg"
+          }
+        },
+        "icon_menu_F6bqCR": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Storage & Organization",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/storage_11974747.svg"
+          }
+        },
+        "icon_menu_J7zmGM": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Sofas & Armchairs",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/armchair_5293817.svg"
+          }
+        },
+        "icon_menu_Hftqf7": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Decor & Accessories",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/pot_15638383.svg"
+          }
+        },
+        "icon_menu_PjKeKa": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Lighting & Lamps",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/hanging-lamp_8931114.svg"
+          }
+        },
+        "icon_menu_qKitV4": {
+          "type": "icon_menu",
+          "settings": {
+            "title": "Kids & Nursery Furniture",
+            "desc": "",
+            "icon_menu": "shopify://shop_images/cradle_18200567.svg"
+          }
+        }
+      },
+      "block_order": [
+        "f5a5ac2b-38b6-4567-8a55-ca3cb5239f61",
+        "text_bfy4yP",
+        "icon_menu_g7Fb8X",
+        "icon_menu_aH3cXC",
+        "icon_menu_aiXAhL",
+        "icon_menu_Hg8R97",
+        "icon_menu_BaMttk",
+        "icon_menu_F6bqCR",
+        "icon_menu_J7zmGM",
+        "icon_menu_Hftqf7",
+        "icon_menu_PjKeKa",
+        "icon_menu_qKitV4"
+      ],
+      "custom_css": [],
+      "settings": {
+        "logo": "shopify://shop_images/logo-dark.png",
+        "w_logo": 130,
+        "w_logo_lg": 120,
+        "w_logo_md": 120,
+        "logo_mobile": "shopify://shop_images/logo-dark.png",
+        "wm_logo": 120,
+        "container": "container-fluid",
+        "color_header": "scheme-5217cfe9-b911-4d97-acc3-eb38506ad6e7",
+        "stickymenu": true,
+        "color_header_sticky": "scheme-5217cfe9-b911-4d97-acc3-eb38506ad6e7",
+        "header_sticky_cart_badge_color": "#181818",
+        "header_sticky_cart_badge_bg": "#fdc402",
+        "header_sticky_wishlist_badge_color": "#ffffff",
+        "header_sticky_wishlist_badge_bg": "#000000",
+        "stickymenu_sm": false,
+        "color_header_sm": "scheme-5217cfe9-b911-4d97-acc3-eb38506ad6e7",
+        "boxshadow_header_sm": true,
+        "search_input_color": "#535353",
+        "search_input_bg": "#f0f0f0",
+        "search_input_border": "#f0f0f0",
+        "search_placeholder": "#a1a1a1",
+        "search_btn_color": "background-2",
+        "search_btn_color_type": "btn-primary",
+        "account_icon": "rbb-icon-human-user-11",
+        "account_svg": false,
+        "wishlist": "rbb-icon-rating-start-outline-2",
+        "wishlist_svg": false,
+        "wishlist_badge_color": "#ffffff",
+        "wishlist_badge_bg": "#000000",
+        "cart_type": "bag",
+        "cart": "3",
+        "cart_svg": false,
+        "cart_badge_color": "#181818",
+        "cart_badge_bg": "#fdc402",
+        "novmenu_enable": true,
+        "show_icons": true,
+        "main_linklist": "main-menu",
+        "color_menu": "background-1",
+        "vertical_menu": "vertical-menu",
+        "vertical_menu_limit": 10,
+        "vertical_menu_btn_color": "scheme-b426a0cd-4d31-4f8a-bd3e-dcd15f34bfd2",
+        "vertical_menu_color": "background-1"
+      }
+    }
+  },
+  "order": [
+    "header"
+  ]
+}

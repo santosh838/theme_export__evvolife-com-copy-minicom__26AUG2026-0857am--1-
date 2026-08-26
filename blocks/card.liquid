@@ -1,0 +1,236 @@
+{%- assign bst = block.settings -%}
+{%- assign aspect_ratio = bst.aspect -%}
+{%- if aspect_ratio == 'custom' -%}
+  {%- assign aspect_ratio = bst.aspect_custom -%}
+{%- endif -%}
+<div class="card-block w-100 text-{{ bst.alignment }} color-{{ bst.button_color }} {{ bst.button_type_color }}{% if bst.card_image_hover %} hover-effect{% endif %}" style="--card-corner: {{ bst.card_corner }}px; --card-image-corner: {{ bst.card_image_corner }}px; --content-bg: {{ bst.content_bg }}; --color-content-bg-hover: {{ bst.content_bg_hover }}; --title-font-size: {{ bst.title_font_size | times: 0.1 }}rem; --text-font-size: {{ bst.text_font_size }}px; --color-title: {{ bst.title_color }}; --color-title-hover: {{ bst.title_color_hover }}; --color-title-link-hover: {{ bst.title_link_color_hover }}; --title-font-weight: {{ bst.title_font_weight }}; --color-text: {{ bst.text_color }}; --color-text-hover: {{ bst.text_color_hover }}; --text-font-weight: {{ bst.text_font_weight }}; --content-ph: {{ bst.content_padding_horizontal }}%; --content-pv: {{ bst.content_padding_vertical }}%; --card-btn-pattern-color: {{ bst.button_pattern_color }};">
+  {% content_for 'blocks' %}
+</div>
+  
+{% schema %}
+  {
+    "name": "Card",
+    "tag": null,
+    "blocks": [
+      {
+        "type": "_card-item"
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Style Card"
+      },
+      {
+        "type": "range",
+        "id": "card_corner",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Card corner radius",
+        "default": 5,
+        "info": "Enable to round the corners of the card"
+      },
+      {
+        "type": "header",
+        "content": "Style Card Image"
+      },
+      {
+        "type": "range",
+        "id": "card_image_corner",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Card image corner radius",
+        "default": 5,
+        "info": "Enable to round the corners of the card image"
+      },
+      {
+        "type": "checkbox",
+        "id": "card_image_hover",
+        "label": "Card image hover effect",
+        "default": false,
+        "info": "Enable to show the card image hover effect"
+      },
+      {
+        "type": "header",
+        "content": "Style Card Content"
+      },
+      {
+        "type": "color",
+        "id": "content_bg",
+        "label": "Content background",
+        "default": "#fff",
+        "info": "Content background"
+      },
+      {
+        "type": "color",
+        "id": "content_bg_hover",
+        "label": "Content background hover",
+        "default": "#fff",
+        "info": "Change the background on card hover."
+      },
+      {
+        "type": "select",
+        "id": "alignment",
+        "label": "Alignment",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ],
+        "default": "left",
+        "visible_if": "{{ section.settings.show_button == false }}"
+      },
+      {
+        "type": "range",
+        "id": "content_padding_horizontal",
+        "label": "Content padding horizontal",
+        "default": 10,
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "info": "Content padding horizontal"
+      },
+      {
+        "type": "range",
+        "id": "content_padding_vertical",
+        "label": "Content padding vertical",
+        "default": 10,
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "%",
+        "info": "Content padding vertical"
+      },
+      {
+        "type": "header",
+        "content": "Style Card Title"
+      },
+      {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title color",
+        "default": "#000",
+        "info": "Title color"
+      },
+      {
+        "type": "color",
+        "id": "title_color_hover",
+        "label": "Title color hover",
+        "default": "#000",
+        "info": "Change the color on card hover."
+      },
+      {
+        "type": "color",
+        "id": "title_link_color_hover",
+        "label": "Title link color hover",
+        "default": "#444",
+        "info": "Change the title link color on hover."
+      },
+      {
+        "type": "range",
+        "id": "title_font_size",
+        "min": 10,
+        "max": 60,
+        "step": 1,
+        "unit": "px",
+        "label": "Title font size",
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "title_font_weight",
+        "label": "Title font weight",
+        "options": [
+          { "value": "100", "label": "Thin - 100" },
+          { "value": "300", "label": "Light - 300" },
+          { "value": "400", "label": "Regular - 400" },
+          { "value": "500", "label": "Medium - 500" },
+          { "value": "600", "label": "SemiBold - 600" },
+          { "value": "700", "label": "Bold - 700" },
+          { "value": "800", "label": "ExtraBold - 800" },
+          { "value": "900", "label": "Black - 900" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "header",
+        "content": "Style Card Text"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#000",
+        "info": "Text color"
+      },
+      {
+        "type": "color",
+        "id": "text_color_hover",
+        "label": "Text color hover",
+        "default": "#000",
+        "info": "Change the color on card hover."
+      },
+      {
+        "type": "range",
+        "id": "text_font_size",
+        "min": 10,
+        "max": 60,
+        "step": 1,
+        "unit": "px",
+        "label": "Text font size",
+        "default": 14
+      },
+      {
+        "type": "select",
+        "id": "text_font_weight",
+        "label": "Text font weight",
+        "options": [
+          { "value": "100", "label": "Thin - 100" },
+          { "value": "300", "label": "Light - 300" },
+          { "value": "400", "label": "Regular - 400" },
+          { "value": "500", "label": "Medium - 500" },
+          { "value": "600", "label": "SemiBold - 600" },
+          { "value": "700", "label": "Bold - 700" },
+          { "value": "800", "label": "ExtraBold - 800" },
+          { "value": "900", "label": "Black - 900" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "header",
+        "content": "Style Card Button"
+      },
+      {
+        "type": "color_scheme",
+        "id": "button_color",
+        "label": "Button color",
+        "default": "primary"
+      },
+      {
+        "type": "select",
+        "id": "button_type_color",
+        "label": "Button type color",
+        "options": [
+          { "value": "btn-primary", "label": "Primary" },
+          { "value": "btn-secondary", "label": "Secondary" }
+        ],
+      },
+      {
+        "type": "color",
+        "id": "button_pattern_color",
+        "label": "Pattern color",
+        "default": "#000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Card"
+      }
+    ]
+  }
+{% endschema %}

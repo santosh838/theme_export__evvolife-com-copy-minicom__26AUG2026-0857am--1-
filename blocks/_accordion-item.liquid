@@ -1,0 +1,36 @@
+{%- assign bst = block.settings -%}
+<div class="nov-accordion__item">
+  <div class="nov-accordion__title font-700 color-title f_pr position-relative">
+    {{ bst.title }}
+  </div>
+  <div class="nov-accordion__content">
+    <div class="block color-text position-relative">
+      {{ bst.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Accordion Item",
+    "tag": null,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "content",
+        "label": "Content"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Accordion Item"
+      }
+    ]
+  }
+  {% endschema %}
+  

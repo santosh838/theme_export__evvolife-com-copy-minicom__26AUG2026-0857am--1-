@@ -1,0 +1,180 @@
+{%- assign bst = block.settings -%}
+<div id="shopify-block-{{ block.id }}" class="col-block{% if bst.custom_width_enable %} custom-width{% endif %}{% if bst.flex_item %} d-flex align-items-{{ bst.align }} justify-content-{{ bst.justify }}{% endif %}" style="--w-xxl:{{ bst.w_xxl }}%;--w-xl:{{ bst.w_xl }}%; --w-lg:{{ bst.w_lg }}%; --w-md:{{ bst.w_md }}%;--w-sm:{{ bst.w_sm }}%;--w-xs:{{ bst.w_xs }}%;{% if bst.custom_width_enable %} --custom-width: {{ bst.custom_width }}px;{% endif %} --pl: {{ bst.pl }}px; --pr: {{ bst.pr }}px;">
+  <div class="col-block-content">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Col",
+    "class": "col-block",
+    "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+    "tag": null,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Col Width"
+      },
+      {
+        "type": "range",
+        "id": "w_xxl",
+        "label": "Desktop",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "info": "Breakpoint 1441px ↑"
+      },
+      {
+        "type": "range",
+        "id": "w_xl",
+        "label": "Large laptop",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "info": "Breakpoint 1200px ↑"
+      },
+      {
+        "type": "range",
+        "id": "w_lg",
+        "label": "Laptop",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "info": "Breakpoint 992px ↑"
+      },
+      {
+        "type": "range",
+        "id": "w_md",
+        "label": "Tablet",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "info": "Breakpoint 768px ↑"
+      },
+      {
+        "type": "range",
+        "id": "w_sm",
+        "label": "Mobile",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%",
+        "info": "Breakpoint 576px ↑"
+      },
+      {
+        "type": "range",
+        "id": "w_xs",
+        "label": "Mobile",
+        "default": 50,
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Custom Width"
+      },
+      {
+        "type": "checkbox",
+        "id": "custom_width_enable",
+        "label": "Enable custom width",
+        "default": false
+      },
+      { 
+        "type": "number",
+        "id": "custom_width",
+        "label": "Custom width",
+        "info": "Unit: px",
+        "visible_if": "{{ block.settings.custom_width_enable == true }}"
+      },
+      {
+        "type": "header",
+        "content": "Flex Item"
+      },
+      {
+        "type": "checkbox",
+        "id": "flex_item",
+        "label": "Flex item",
+        "default": false,
+        "info": "Enable flex item"
+      },
+      {
+        "type": "select",
+        "id": "align",
+        "label": "Align",
+        "options": [
+          {
+            "value": "start",
+            "label": "Start"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "End"
+          }
+        ],
+        "default": "center",
+        "visible_if": "{{ block.settings.flex_item == true }}"
+      },
+      {
+        "type": "select",
+        "id": "justify",
+        "label": "Justify",
+        "options": [
+          {
+            "value": "start",
+            "label": "Start"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "End"
+          }
+        ],
+        "default": "center",
+        "visible_if": "{{ block.settings.flex_item == true }}"
+      },
+      {
+        "type": "header",
+        "content": "Padding Horizontal"
+      },
+      {
+        "type": "number",
+        "id": "pl",
+        "label": "Padding left",
+        "default": 0,
+        "info": "Unit: px"
+      },
+      {
+        "type": "number",
+        "id": "pr",
+        "label": "Padding right",
+        "default": 0,
+        "info": "Unit: px"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Col"
+      }
+    ]
+  }
+  {% endschema %}
+  

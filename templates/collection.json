@@ -1,0 +1,301 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "collection-template",
+      "blocks": {
+        "list_collection_T9gidL": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-bedroom.png",
+            "collection": "bedroom"
+          }
+        },
+        "list_collection_UXEHUr": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-dining-room.png",
+            "collection": "dining-room"
+          }
+        },
+        "list_collection_3Q9Ldz": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-lighting.png",
+            "collection": "lighting"
+          }
+        },
+        "list_collection_N4DEiC": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-table.png",
+            "collection": "tables-desks"
+          }
+        },
+        "list_collection_drWmdB": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-office.png",
+            "collection": "office"
+          }
+        },
+        "list_collection_MyCMJJ": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-livingroom.png",
+            "collection": "living-room"
+          }
+        },
+        "list_collection_qMVDfy": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-plant-pot.png",
+            "collection": "plant-pots"
+          }
+        },
+        "list_collection_qDmay9": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-outdoor.png",
+            "collection": "outdoor"
+          }
+        },
+        "list_collection_dgnC9T": {
+          "type": "list_collection",
+          "settings": {
+            "image": "shopify://shop_images/cate-sofa.png",
+            "collection": "sofa"
+          }
+        }
+      },
+      "block_order": [
+        "list_collection_T9gidL",
+        "list_collection_UXEHUr",
+        "list_collection_3Q9Ldz",
+        "list_collection_N4DEiC",
+        "list_collection_drWmdB",
+        "list_collection_MyCMJJ",
+        "list_collection_qMVDfy",
+        "list_collection_qDmay9",
+        "list_collection_dgnC9T"
+      ],
+      "settings": {
+        "show_list_collection": true,
+        "show_nav": true,
+        "xxl": 6,
+        "xl": 6,
+        "lg": 4,
+        "md": 3,
+        "sm": 2,
+        "xs": 1,
+        "spacing": 20,
+        "category": "category",
+        "show_more": 5,
+        "products_per_page": 12,
+        "sort_enable": true,
+        "loadmore": true,
+        "type_loadmore": "btn",
+        "cb": true,
+        "show_tags": true,
+        "show_desc": true,
+        "bg_b": "#f2f2f2"
+      }
+    },
+    "nov_policy_d4yj6Y": {
+      "type": "nov-policy",
+      "blocks": {
+        "item_policy_JRaCjT": {
+          "type": "item_policy",
+          "settings": {
+            "policy_icon": "shopify://shop_images/leaves.svg",
+            "title_policy": "Eco-Friendly Materials",
+            "stitle_policy": "",
+            "desc_policy": "We craft our furniture using responsibly sourced, environmentally friendly materials.",
+            "mw": 500,
+            "link_label": "",
+            "link": "",
+            "bg_icon": "#f5f5f5",
+            "item_border_top_color": "",
+            "border_icon": "",
+            "class": "mb-md-30"
+          }
+        },
+        "item_policy_8HeEqU": {
+          "type": "item_policy",
+          "settings": {
+            "policy_icon": "shopify://shop_images/pen-slash.svg",
+            "title_policy": "Effortless Assembly",
+            "stitle_policy": "",
+            "desc_policy": "Thoughtfully designed for quick setup, requiring minimal effort and no extra tools.",
+            "mw": 500,
+            "link_label": "",
+            "link": "",
+            "bg_icon": "#f5f5f5",
+            "item_border_top_color": "",
+            "border_icon": "",
+            "class": "mb-md-30"
+          }
+        },
+        "item_policy_AAeyJd": {
+          "type": "item_policy",
+          "settings": {
+            "policy_icon": "shopify://shop_images/recycle.svg",
+            "title_policy": "Giving Back to Nature",
+            "stitle_policy": "",
+            "desc_policy": "Every purchase contributes to reforestation efforts, helping restore green spaces.",
+            "mw": 500,
+            "link_label": "",
+            "link": "",
+            "bg_icon": "#f5f5f5",
+            "item_border_top_color": "",
+            "border_icon": "",
+            "class": "mb-xs-30"
+          }
+        },
+        "item_policy_dRjVNU": {
+          "type": "item_policy",
+          "settings": {
+            "policy_icon": "shopify://shop_images/idea.svg",
+            "title_policy": "Sustainable Production",
+            "stitle_policy": "",
+            "desc_policy": "Dedicated to reducing waste and promoting eco-conscious manufacturing practices.",
+            "mw": 500,
+            "link_label": "",
+            "link": "",
+            "bg_icon": "#f5f5f5",
+            "item_border_top_color": "",
+            "border_icon": "",
+            "class": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_policy_JRaCjT",
+        "item_policy_8HeEqU",
+        "item_policy_AAeyJd",
+        "item_policy_dRjVNU"
+      ],
+      "name": "Vinova Policy",
+      "settings": {
+        "heading": "",
+        "heading_color": "#181818",
+        "subheading": "",
+        "subheading_color": "#b7b7b7",
+        "subheading_position": "top",
+        "descheading": "",
+        "descheading_color": "#666666",
+        "heading_alignment": "text-center",
+        "style": "style3",
+        "show_bgitem": false,
+        "bg_itemcolor": "",
+        "bd_radius": 0,
+        "box_shadow": false,
+        "show_border_item": false,
+        "show_border_right_item": false,
+        "c_border_item": "",
+        "show_border_top_item": false,
+        "pt": 0,
+        "pb": 0,
+        "ph": 0,
+        "width_icon": 30,
+        "height_icon": 30,
+        "show_bg_icon": true,
+        "bg_icon_w": 70,
+        "bd_radius_icon": 100,
+        "show_border_icon": false,
+        "bg_icon_shadow": false,
+        "shadow_color": "",
+        "shadow_opacity": 40,
+        "icon_animate": false,
+        "text_fz": 16,
+        "text_ff": "f_pr",
+        "t_fw": "font-700",
+        "t_letter_spacing": "0",
+        "stext_fz": 16,
+        "stext_ff": "f_pr",
+        "st_fw": "font-700",
+        "desc_fz": 14,
+        "desc_ff": "f_df",
+        "desc_fw": "font-400",
+        "xxl": 4,
+        "xl": 4,
+        "lg": 4,
+        "md": 2,
+        "sm": 2,
+        "xs": 1,
+        "spacing": 30,
+        "animate": true,
+        "container": "container",
+        "color_section": "",
+        "class_section": "",
+        "ss_bg_enable": false,
+        "background_color": "#ffffff",
+        "background_img_size": "cover",
+        "enable_background_img_size_custom": false,
+        "background_img_size_custom": "",
+        "background_img_position": "center center",
+        "background_corner": 0,
+        "background_position": "bg-center",
+        "background_size": "full",
+        "background_padding_horizontal": 1,
+        "height_background_xxl": 100,
+        "height_background_xl": 100,
+        "height_background_lg": 100,
+        "height_background_md": 100,
+        "height_background_sm": 100,
+        "height_background_xs": 100,
+        "distance_top_xl": 120,
+        "distance_top_lg": 100,
+        "distance_top_md": 80,
+        "distance_top_sm": 60,
+        "distance_bottom_xl": 120,
+        "distance_bottom_lg": 100,
+        "distance_bottom_md": 80,
+        "distance_bottom_sm": 60
+      }
+    },
+    "recent-products": {
+      "type": "nov-recently-viewed",
+      "settings": {
+        "heading": "<p>RECENTLY VIEWED PRODUCTS</p>",
+        "heading_color": "#181818",
+        "subheading": "",
+        "subheading_color": "#666666",
+        "heading_alignment": "text-center",
+        "grid_number_xxl": 5,
+        "grid_number": 4,
+        "grid_number_lg": 3,
+        "grid_number_md": 3,
+        "grid_number_sm": 2,
+        "grid_number_xs": 2,
+        "limit": 13,
+        "show_nav": false,
+        "animate": true,
+        "show_border": true,
+        "border_color": "#ededed",
+        "container": "container",
+        "background_color": "",
+        "class": "",
+        "distance_top_xl": 70,
+        "distance_top_md": 30,
+        "distance_top_xs": 30,
+        "distance_bottom_xl": 30,
+        "distance_bottom_md": 30,
+        "distance_bottom_xs": 30
+      }
+    }
+  },
+  "order": [
+    "main",
+    "nov_policy_d4yj6Y",
+    "recent-products"
+  ]
+}

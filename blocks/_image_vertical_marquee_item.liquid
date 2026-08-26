@@ -1,0 +1,29 @@
+<div class="col image-vertical-marquee-item marqueeUp{% if block.settings.marquee_reverse %} marquee-reverse{% endif %}">
+  <div class="block-marquee-item">
+    {% content_for 'blocks' %}
+  </div>
+  
+</div>
+  
+{% schema %}
+  {
+    "name": "Marquee Item",
+    "tag": null,
+    "blocks": [
+      { "type": "image" }
+    ],
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "marquee_reverse",
+        "label": "Marquee reverse",
+        "info": "Enable to reverse the marquee direction"
+      },
+    ],
+    "presets": [
+      {
+        "name": "Marquee Item"
+      }
+    ]
+  }
+{% endschema %}

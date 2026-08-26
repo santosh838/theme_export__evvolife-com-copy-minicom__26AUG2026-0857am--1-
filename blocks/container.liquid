@@ -1,0 +1,30 @@
+<div class="{{ block.settings.container }}">
+  {% content_for 'blocks' %}
+</div>
+
+{% schema %}
+  {
+    "name": "Container",
+    "tag": null,
+    "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+    "settings": [
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "default": "container",
+        "options": [
+          { "value": "container", "label": "Container" },
+          { "value": "container-fluid", "label": "Container fluid"},
+          { "value": "container-full", "label": "Container full width"}
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Container"
+      }
+    ]
+  }
+  {% endschema %}
+  

@@ -1,0 +1,82 @@
+{%- assign bst = block.settings -%}
+<div class="icon-block d-flex align-items-center justify-content-center overflow_hidden" style="width: {{ bst.background_size }}px;min-width: {{ bst.background_size }}px; height: {{ bst.background_size }}px; border-radius: {{ bst.border_radius }}px; background-color: {{ bst.background_color }}; --color-icon: {{ bst.icon_color }}; --color-icon-hover: {{ bst.icon_color_hover }};">
+  <div class="icon-content" style="width: {{ bst.icon_size }}px;">
+      {%- if bst.icon != blank -%}
+        {% render 'nov-aspect-image', image: bst.icon, aspect: '11' %}
+      {%- elsif bst.icon_svg != blank -%}
+        {{ bst.icon_svg }}
+      {%- else -%}
+        {{ 'product-apparel-1' | placeholder_svg_tag : 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Icon",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Icon"
+    },
+    {
+      "type": "html",
+      "id": "icon_svg",
+      "label": "Icon SVG",
+      "info": "Replace fill and stroke color with 'currentColor' to use custom color"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#444444",
+      "visible_if": "{{ block.settings.icon_svg != blank }}"
+    },
+    {
+      "type": "color",
+      "id": "icon_color_hover",
+      "label": "Icon color hover",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.icon_svg != blank }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "background_size",
+      "label": "Background size",
+      "default": 50,
+      "info": "Unit: px"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "alpha": true,
+      "default": "#000000"
+    },
+    {
+      "type": "number",
+      "id": "border_radius",
+      "label": "Border radius",
+      "default": 10,
+      "info": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,130 @@
+{%- assign bst = block.settings -%}
+{% style %}
+  #shopify-block-{{ block.id }} .countdownfree {
+    --color-dot: {{ bst.cd_cd }};
+  }
+  #shopify-block-{{ block.id }} .data-number {
+    color: {{ bst.c_cd }};
+    background-color: {{ bst.bg_cd }};
+    border: 1px solid {{ bst.bd_cd }};
+    border-radius: {{ bst.border_radius }}px;
+  }
+  #shopify-block-{{ block.id }} .name-time {
+    color: {{ bst.ct_cd }};
+  }
+{% endstyle %}
+<div id="shopify-block-{{ block.id }}" class="theme-blocks-item countdown-block" style="--mt-xl: {{ bst.mt_xl }}px; --mt-lg: {{ bst.mt_lg }}px; --mt-md: {{ bst.mt_md }}px; --mt-sm: {{ bst.mt_sm }}px; --mb-xl: {{ bst.mb_xl }}px; --mb-lg: {{ bst.mb_lg }}px; --mb-md: {{ bst.mb_md }}px; --mb-sm: {{ bst.mb_sm }}px;">
+  {% if bst.countdown_timeend != blank %}
+    <div class="countdownfree d-inline-flex{% if bst.show_shadow %} shadow{% endif %}" data-countdown="{{ bst.countdown_timeend }}" data-show-days="{{ settings.show_day }}" data-restart="{{ settings.restart }}"></div>
+  {% else %}
+    <div class="countdownfree d-inline-flex{% if bst.show_shadow %} shadow{% endif %}">
+      <div class="item-time"><span class="data-number">24</span><span class="name-time">Days</span></div>
+      <div class="item-time"><span class="data-number">09</span><span class="name-time">Hours</span></div>
+      <div class="item-time"><span class="data-number">28</span><span class="name-time">Mins</span></div>
+      <div class="item-time"><span class="data-number">21</span><span class="name-time">Secs</span></div>
+    </div>
+  {% endif %}
+</div>
+  
+{% schema %}
+  {
+    "name": "Countdown",
+    "settings": [
+      {
+        "type": "text",
+        "id": "countdown_timeend",
+        "label": "Time end",
+        "placeholder": "YYYY-MM-DD"
+      },
+      {
+        "type": "paragraph",
+        "content": "Format: 'Year-Month-Day'"
+      },
+      {
+        "type": "paragraph",
+        "content": "Example: '2022-01-30'"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Border radius",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "c_cd",
+        "label": "Number color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "bg_cd",
+        "label": "Number background",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "bd_cd",
+        "label": "Number border color",
+        "default": "#EAEAEA"
+      },
+      {
+        "type": "color",
+        "id": "ct_cd",
+        "label": "Text color",
+        "default": "#1c1c1c"
+      },
+      {
+        "type": "color",
+        "id": "cd_cd",
+        "label": "Dot color",
+        "default": "#1c1c1c"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_shadow",
+        "label": "Show shadow"
+      },
+      {
+        "type": "header",
+        "content": "Spacing Bottom (px)"
+      },
+      {
+        "type": "number",
+        "id": "mb_xl",
+        "label": "Large laptop",
+        "default": 30,
+        "info": "Breakpoint 1200px"
+      },
+      {
+        "type": "number",
+        "id": "mb_lg",
+        "label": "Laptop",
+        "default": 30,
+        "info": "Breakpoint 992px"
+      },
+      {
+        "type": "number",
+        "id": "mb_md",
+        "label": "Tablet",
+        "default": 30,
+        "info": "Breakpoint 768px"
+      },
+      {
+        "type": "number",
+        "id": "mb_sm",
+        "label": "Mobile",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Countdown"
+      }
+    ]
+  }
+{% endschema %}

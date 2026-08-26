@@ -1,0 +1,194 @@
+{%- assign bst = block.settings -%}
+<div class="theme-blocks-item group-block overflow_hidden" style="background-color: {{ bst.bg_color }}; border-radius: {{ bst.corner_radius }}px;--pt-xl: {{ bst.pt_xl }}px; --pt-lg: {{ bst.pt_lg }}px; --pt-md: {{ bst.pt_md }}px; --pt-sm: {{ bst.pt_sm }}px; --pb-xl: {{ bst.pb_xl }}px; --pb-lg: {{ bst.pb_lg }}px; --pb-md: {{ bst.pb_md }}px; --pb-sm: {{ bst.pb_sm }}px;">
+  <div class="row spacing-{{ bst.row_spacing }} spacing-md-{{ bst.row_spacing_md }} align-items-{{ bst.align }} justify-content-{{ bst.justify }}{% if bst.direction_reverse %} {{ bst.direction_row }}{% endif %}" style="--spacing: {{ bst.row_spacing }}px; --spacing-md: {{ bst.row_spacing_md }}px;">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+  {% schema %}
+  {
+    "name": "Group",
+    "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Spacing"
+      },
+      {
+        "type": "range",
+        "id": "row_spacing",
+        "label": "Spacing",
+        "default": 30,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "row_spacing_md",
+        "label": "Spacing tablet 991px ↓",
+        "default": 30,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "align",
+        "label": "Align",
+        "options": [
+          {
+            "value": "start",
+            "label": "Start"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "End"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "select",
+        "id": "justify",
+        "label": "Justify",
+        "options": [
+          {
+            "value": "start",
+            "label": "Start"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "end",
+            "label": "End"
+          },
+          {
+            "value": "between",
+            "label": "Between"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Direction Reverse"
+      },
+      {
+        "type": "checkbox",
+        "id": "direction_reverse",
+        "label": "Enable direction reverse"
+      },
+      {
+        "type": "select",
+        "id": "direction_row",
+        "label": "Direction",
+        "options": [
+          { "value": "flex-row-reverse", "label": "Row reverse" },
+          { "value": "flex-xl-row-reverse", "label": "Row reverse desktop" },
+          { "value": "flex-lg-row-reverse", "label": "Row reverse laptop" },
+          { "value": "flex-md-row-reverse", "label": "Row reverse tablet" },
+          { "value": "flex-sm-row-reverse", "label": "Row reverse mobile" }
+        ],
+        "default": "flex-row-reverse",
+        "visible_if": "{{ block.settings.direction_reverse == true }}"
+      },
+      {
+        "type": "header",
+        "content": "Style Group"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color",
+        "default": "#fff"
+      },
+      {
+        "type": "range",
+        "id": "corner_radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "label": "Corner radius",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Spacing Top (px)"
+      },
+      {
+        "type": "number",
+        "id": "pt_xl",
+        "label": "Large laptop",
+        "default": 30,
+        "info": "Breakpoint 1200px"
+      },
+      {
+        "type": "number",
+        "id": "pt_lg",
+        "label": "Laptop",
+        "default": 30,
+        "info": "Breakpoint 992px"
+      },
+      {
+        "type": "number",
+        "id": "pt_md",
+        "label": "Tablet",
+        "default": 30,
+        "info": "Breakpoint 768px"
+      },
+      {
+        "type": "number",
+        "id": "pt_sm",
+        "label": "Mobile",
+        "default": 30
+      },
+      {
+        "type": "header",
+        "content": "Spacing Bottom (px)"
+      },
+      {
+        "type": "number",
+        "id": "pb_xl",
+        "label": "Large laptop",
+        "default": 30,
+        "info": "Breakpoint 1200px"
+      },
+      {
+        "type": "number",
+        "id": "pb_lg",
+        "label": "Laptop",
+        "default": 30,
+        "info": "Breakpoint 992px"
+      },
+      {
+        "type": "number",
+        "id": "pb_md",
+        "label": "Tablet",
+        "default": 30,
+        "info": "Breakpoint 768px"
+      },
+      {
+        "type": "number",
+        "id": "pb_sm",
+        "label": "Mobile",
+        "default": 30
+      }
+    ],
+    "presets": [
+      {
+        "name": "Group"
+      }
+    ]
+  }
+  {% endschema %}
+  

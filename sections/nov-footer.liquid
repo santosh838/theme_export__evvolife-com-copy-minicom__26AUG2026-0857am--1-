@@ -1,0 +1,92 @@
+{% liquid 
+  assign sst = section.settings
+%}
+{% style %}
+  footer {
+    {% if sst.background_color != blank %}
+      background: {{ sst.background_color }};
+    {% endif %}
+    {% if sst.background_image != blank %}
+      background-image: url("{{ sst.background_image | image_url: width: 2560 }}");
+      background-size: {{ sst.background_img_size_custom | default: sst.background_image_size }};
+      background-position: {{ sst.background_img_position }};
+      background-repeat: no-repeat;
+    {% endif %}
+  }
+{% endstyle %}
+<footer>
+  {% content_for 'blocks' %}
+</footer>
+{% schema %}
+  {
+    "name": "Footer",
+    "class": "nov-footer",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "animate",
+        "label": "Show animated",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Section Style"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background colors"
+      },
+      {
+        "type": "image_picker",
+        "id": "background_image",
+        "label": "Background image"
+      },
+      {
+        "type": "select",
+        "id": "background_image_size",
+        "label": "Background image size",
+        "default": "cover",
+        "options": [
+          { "value": "cover", "label": "Cover" },
+          { "value": "contain", "label": "Contain"},
+          { "value": "auto", "label": "Auto"}
+        ],
+        "visible_if": "{{ section.settings.background_image != blank }}"
+      },
+      {
+        "type": "text",
+        "id": "background_img_size_custom",
+        "label": "Background image size custom",
+        "info": "Replace base background size, unit % or px",
+        "visible_if": "{{ section.settings.background_image != blank }}"
+      },
+      {
+        "type": "select",
+        "id": "background_img_position",
+        "label": "Background image position",
+        "default": "center center",
+        "options": [
+          { "value": "top left", "label": "Top left" },
+          { "value": "top center", "label": "Top center" },
+          { "value": "top right", "label": "Top right" },
+          { "value": "center left", "label": "Center left" },
+          { "value": "center center", "label": "Center middle" },
+          { "value": "center right", "label": "Center right" },
+          { "value": "bottom left", "label": "Bottom left" },
+          { "value": "bottom center", "label": "Bottom center" },
+          { "value": "bottom right", "label": "Bottom right" }
+        ],
+        "visible_if": "{{ section.settings.background_image != blank }}"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@theme"
+      },
+      {
+        "type": "@app"
+      }
+    ]
+  }
+{% endschema %}
