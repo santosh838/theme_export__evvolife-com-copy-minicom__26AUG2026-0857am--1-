@@ -12,11 +12,22 @@
     {% endif %}
     {% for block in section.blocks %}
     {% if block.type == 'block_text' %}
+      {% liquid
+        assign tab_content = block.settings.custom_content
+        assign title_handle = block.settings.custom_title | handleize
+        if product.metafields.custom[title_handle] != blank
+          assign tab_content = product.metafields.custom[title_handle]
+        elsif title_handle contains 'delivery' and product.metafields.custom.delivery_policy != blank
+          assign tab_content = product.metafields.custom.delivery_policy
+        elsif title_handle contains 'shipping' and product.metafields.custom.shipping_return != blank
+          assign tab_content = product.metafields.custom.shipping_return
+        endif
+      %}
       <div class="block_custom product-single__tabs">
         <div class="nov-accordion__title">{{ block.settings.custom_title }}</div>
         <div class="nov-accordion__content">
           <div class="block">
-            <div class="product-description">{{ block.settings.custom_content }}</div>
+            <div class="product-description">{{ tab_content }}</div>
           </div>
         </div>
       </div>
@@ -48,20 +59,24 @@
         <div class="nov-accordion__title" aria-expanded="false">{{ block.settings.custom_title }}</div>
         <div class="nov-accordion__content">
           <div class="block">
-            <ul class="product-single__customtab list-unstyled">
-              {% for i in (1..10) %}
-                {%- assign t_id = 't' | append: i -%}
-                {%- assign c_id = 'c' | append: i -%}
-                {% if block.settings[t_id] != blank or block.settings[c_id] != blank %}
-                  <li>
-                    <div class="row align-items-center p-4 pt-10 pb-10">
-                      <div class="title col-4">{{ block.settings[t_id] }}</div>
-                      <div class="content col-8">{{ block.settings[c_id] }}</div>
-                    </div>
-                  </li>
-                {% endif %}
-              {% endfor %}
-            </ul>
+            {% if product.metafields.custom.custom_tab != blank %}
+              <div class="product-description">{{ product.metafields.custom.custom_tab }}</div>
+            {% else %}
+              <ul class="product-single__customtab list-unstyled">
+                {% for i in (1..10) %}
+                  {%- assign t_id = 't' | append: i -%}
+                  {%- assign c_id = 'c' | append: i -%}
+                  {% if block.settings[t_id] != blank or block.settings[c_id] != blank %}
+                    <li>
+                      <div class="row align-items-center p-4 pt-10 pb-10">
+                        <div class="title col-4">{{ block.settings[t_id] }}</div>
+                        <div class="content col-8">{{ block.settings[c_id] }}</div>
+                      </div>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
           </div>
         </div>
       </div>

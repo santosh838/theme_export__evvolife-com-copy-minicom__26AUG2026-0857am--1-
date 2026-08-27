@@ -117,6 +117,22 @@
       >
         <div class="product-single__image {{ col_image }}">
           <div class="product-single__photos product-single__sticky">
+            <div
+              class="product-single__overlay-actions position-absolute d-flex flex-column align-items-center"
+              style="top: 15px; right: 15px; z-index: 10; gap: 10px;"
+            >
+              {% if section.settings.show_share %}
+                <div
+                  class="product-single__share-btn pointer d-flex align-items-center justify-content-center"
+                  data-toggle="modal"
+                  data-target="#Shopshare"
+                  style="width: 38px; height: 38px; border-radius: 50%; background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer;"
+                  title="{{ 'products.product.label_share' | t }}"
+                >
+                  <i class="zmdi zmdi-share" style="font-size: 18px; color: #181818;"></i>
+                </div>
+              {% endif %}
+            </div>
             {% render 'product-single-media-featured', viewtype: viewtype %}
             {% unless viewtype contains 'sliderimg' %}
               {% render 'product-single-media-thumb', viewtype: viewtype %}

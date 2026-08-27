@@ -479,6 +479,16 @@ h1.product-single__title {
     }
 }
 
+@media(max-width: 767px) {
+    .proFeaturedImage .slick-arrow,
+    .proFeaturedImage .arrow-next,
+    .proFeaturedImage .arrow-prev,
+    .proFeaturedImage .slick-next,
+    .proFeaturedImage .slick-prev {
+        display: none !important;
+    }
+}
+
 .proFeaturedImage img {
     background-color: #fff
 }

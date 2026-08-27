@@ -14714,6 +14714,17 @@ body .sidebar-overlay.margin {
     }
 }
 
+@media(max-width: 767px) {
+    .product-single .slick-arrow,
+    .product-single .arrow-next,
+    .product-single .arrow-prev,
+    .proFeaturedImage .slick-arrow,
+    .proFeaturedImage .arrow-next,
+    .proFeaturedImage .arrow-prev {
+        display: none !important;
+    }
+}
+
 @media(max-width: 600px) {
     .section-product-single .AirReviews-Widget.AirReviews-Widget--Stars {
         display: block !important
