@@ -121,6 +121,10 @@
     </div>
     <script src="{{ 'nov-product-variants.js' | asset_url }}" defer></script>
     <script src="{{ 'nuranium.js' | asset_url }}" defer></script>
+    {%- comment -%} Must stay AFTER nuranium.js: it re-binds the mini-cart handlers. {%- endcomment -%}
+    <script src="{{ 'cart-ajax-speedup.js' | asset_url }}" defer></script>
+    {%- comment -%} Must stay AFTER nov-product-variants.js: it mirrors the main form's variant state. {%- endcomment -%}
+    <script src="{{ 'sticky-atc-mobile.js' | asset_url }}" defer></script>
       {% if request.design_mode %}
         {% render 'purchasecode' %}
         {{ 'css-popup_purchase_code.css' | asset_url | stylesheet_tag }}

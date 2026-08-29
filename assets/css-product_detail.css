@@ -1544,8 +1544,109 @@ h1.product-single__title {
 }
 
 @media(max-width: 991px) {
+
+    /* Mobile sticky bar: price + Add to Bag + Buy Now only. Thumbnail, title,
+       variant dropdowns and the qty stepper are hidden - variant and quantity
+       come from the main product form, which stays the source of truth. */
+
+    /* global.js toggles .act from `scrollTop > window.height`, a proxy that only
+       matches the desktop layout. Suppress it so mobile visibility comes from
+       .act-mobile (sticky-atc-mobile.js, IntersectionObserver on the real
+       buttons) and the two never fight over one class.
+
+       Gated on .js-sticky-controlled, which that script adds only after every
+       lookup it needs has succeeded. If the script 404s, throws or bails, the
+       class is absent, .act keeps working and the bar is merely coarse instead
+       of invisible. Do NOT drop this gate: unconditional suppression turns any
+       JS failure into a bar that can never appear on mobile. */
+    .product-single__stick-add.js-sticky-controlled.act {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(100%)
+    }
+
+    /* Listed after the rule above and at equal specificity, so act-mobile wins
+       when both classes are present. */
+    .product-single__stick-add.js-sticky-controlled.act-mobile,
+    .product-single__stick-add.act-mobile {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0)
+    }
+
+    /* Anything else pinned to bottom:0 competes with this bar for the same
+       strip. The mobile bottom nav (#stickymenu_bottom_mobile) is fixed at
+       bottom:0 with z-index 101 and an opaque background, so it would paint
+       straight over the bar - below 768px the product page hides it outright
+       (see further down). --sticky-atc-offset is set from the nav's measured
+       height by sticky-atc-mobile.js, so if the nav is ever restored here the
+       bar stacks above it instead of vanishing again. */
     .product-single__stick-add {
-        display: none
+        padding: 8px 0;
+        bottom: var(--sticky-atc-offset, 0px);
+        z-index: 100
+    }
+
+    .product-single__stick-add .container {
+        padding-left: 12px;
+        padding-right: 12px;
+        gap: 10px
+    }
+
+    /* Everything except the two buttons is hidden. The price still renders in
+       the bar on desktop, so sticky-atc-mobile.js keeps mirroring it - it is
+       simply not shown at this width. */
+    .product-single__stick-add .product__image,
+    .product-single__stick-add .product__title,
+    .product-single__stick-add .product__info-sticky,
+    .product-single__stick-add product-variant-selects-stick,
+    .product-single__stick-add #productSelectStick,
+    .product-single__stick-add .quick_view_qty,
+    .product-single__stick-add .shopify-payment-button__more-options {
+        display: none !important
+    }
+
+    /* Add to Bag and Buy Now, side by side, each taking half the width. */
+    .product-single__stick-add form,
+    .product-single__stick-add .product-form__item--quantity {
+        margin: 0;
+        flex: 1 1 auto;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px
+    }
+
+    .product-single__stick-add .product-form__item--submit,
+    .product-single__stick-add .product-form__item--checkout {
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: none;
+        margin: 0
+    }
+
+    .product-single__stick-add .btnAddToCart,
+    .product-single__stick-add .shopify-payment-button__button {
+        width: 100%;
+        min-height: 46px;
+        padding: 0 8px;
+        font-size: 13px;
+        white-space: nowrap
+    }
+}
+
+/* Below 768px the product page hides the bottom nav entirely so the sticky
+   Add to Bag / Buy Now bar is the only thing pinned to the bottom. This
+   stylesheet is only loaded by nov-product-template, and the rule is scoped to
+   .template-product on top of that, so the nav is untouched everywhere else.
+   With the nav gone, navHeight() measures 0 and the bar sits flush at bottom:0
+   on its own - no offset needed. */
+@media(max-width: 767px) {
+    .template-product #stickymenu_bottom_mobile {
+        display: none !important
+    }
+
+    .product-single__stick-add {
+        bottom: var(--sticky-atc-offset, 0px)
     }
 }
 

@@ -14,7 +14,8 @@ html {
 }
 
 img {
-    max-width: 100%
+    max-width: 100%;
+    object-fit:contain;
 }
 
 p:last-child {

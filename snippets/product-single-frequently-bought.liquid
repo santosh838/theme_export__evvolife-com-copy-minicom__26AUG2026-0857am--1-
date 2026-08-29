@@ -50,92 +50,145 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var mainPriceCents = {{ product.selected_or_first_available_variant.price }};
-    var addToCartBtn = document.getElementById('AddToCart');
-    var addToCartText = document.getElementById('AddToCartText');
-    var checkboxes = document.querySelectorAll('.paired-addon-checkbox');
+  (function() {
+    function initPairedAddon() {
+      var checkboxes = document.querySelectorAll('.paired-addon-checkbox');
+      if (!checkboxes.length) return;
 
-    function formatMoney(cents) {
-      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
-        return Shopify.formatMoney(cents, theme.moneyFormat);
-      }
-      return 'Rs. ' + (cents / 100).toFixed(2);
-    }
+      var mainPriceCents = {{ product.selected_or_first_available_variant.price }};
+      // NOTE: id="AddToCart" is duplicated on the page (main form + sticky bar),
+      // so getElementById would only ever bind the first one and the sticky
+      // button would silently ignore the checked add-ons.
+      var buttons = document.querySelectorAll('.btnAddToCart');
 
-    function updateAddToCartTotal() {
-      if (!addToCartText) return;
-      var totalCents = mainPriceCents;
-
-      checkboxes.forEach(function(cb) {
-        if (cb.checked) {
-          totalCents += parseInt(cb.getAttribute('data-price') || 0);
+      function formatMoney(cents) {
+        if (typeof Shopify !== 'undefined' && Shopify.formatMoney && typeof theme !== 'undefined') {
+          return Shopify.formatMoney(cents, theme.moneyFormat);
         }
-      });
+        return 'Rs. ' + (cents / 100).toFixed(2);
+      }
 
-      addToCartText.innerText = 'ADD TO BAG — ' + formatMoney(totalCents);
-    }
+      function isSoldOut(btn) {
+        var wrap = btn.closest('.product-form__item--submit');
+        return !!(wrap && wrap.classList.contains('soldout'));
+      }
 
-    checkboxes.forEach(function(cb) {
-      cb.addEventListener('change', updateAddToCartTotal);
-    });
+      function labelOf(btn) {
+        return btn.querySelector('[id="AddToCartText"]');
+      }
 
-    updateAddToCartTotal();
+      function setLabel(text) {
+        buttons.forEach(function(btn) {
+          if (isSoldOut(btn)) return; // leave "Notify Me" alone
+          var label = labelOf(btn);
+          if (label) label.innerText = text;
+        });
+      }
 
-    if (addToCartBtn) {
-      addToCartBtn.addEventListener('click', function(e) {
-        var checkedAddons = [];
+      function updateAddToCartTotal() {
+        var totalCents = mainPriceCents;
         checkboxes.forEach(function(cb) {
           if (cb.checked) {
-            checkedAddons.push(parseInt(cb.getAttribute('data-variant-id')));
+            totalCents += parseInt(cb.getAttribute('data-price') || 0, 10);
           }
         });
+        setLabel('ADD TO BAG — ' + formatMoney(totalCents));
+      }
 
-        if (checkedAddons.length > 0) {
+      // `nuranium` is declared with `var` inside the IIFE in nuranium.js and is
+      // never attached to window, so window.nuranium.initMiniCart() is a no-op.
+      // Refresh the drawer the same way the theme's own ajaxProductAddToCart does.
+      function refreshCartDrawer() {
+        if (typeof jQuery === 'undefined') {
+          window.location.href = '/cart';
+          return;
+        }
+
+        jQuery.get('/cart?view=json', function(html) {
+          jQuery('#cart-info').html(html);
+        }).always(function() {
+          jQuery.getJSON('/cart.js', function(cart) {
+            jQuery('.CartCount, #CartCountCavas').text(cart.item_count);
+            jQuery('#header-cart-total').html(formatMoney(cart.total_price));
+            jQuery('.cart-popup-heading span').html('There are ' + cart.item_count + ' item(s) in your cart');
+            jQuery('#desktop_cart').toggleClass('item_count', cart.item_count > 0);
+          });
+          // Open the drawer only after its markup has been replaced.
+          jQuery('#desktop_cart').addClass('active');
+          jQuery('.sidebar-overlay').addClass('act');
+          jQuery('body').addClass('cart_popup_opened');
+        });
+      }
+
+      checkboxes.forEach(function(cb) {
+        cb.addEventListener('change', updateAddToCartTotal);
+      });
+
+      updateAddToCartTotal();
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          var checkedAddons = [];
+          checkboxes.forEach(function(cb) {
+            if (cb.checked) {
+              checkedAddons.push(parseInt(cb.getAttribute('data-variant-id'), 10));
+            }
+          });
+
+          if (!checkedAddons.length) return; // nothing paired: let the theme handle it
+
           e.preventDefault();
           e.stopPropagation();
           e.stopImmediatePropagation();
 
-          var mainVariantInput = document.getElementById('variant_id') || document.querySelector('input[name="id"]');
-          var mainVariantId = mainVariantInput ? parseInt(mainVariantInput.value) : {{ product.selected_or_first_available_variant.id }};
-          var qtyInput = document.getElementById('Quantity');
-          var qty = qtyInput ? parseInt(qtyInput.value) : 1;
+          // Read id/quantity from THIS button's own form so the sticky bar posts
+          // its own variant and quantity instead of the main form's.
+          var form = btn.closest('form');
+          var idInput = form && form.querySelector('[name="id"]');
+          var qtyInput = form && form.querySelector('[name="quantity"]');
+          var mainVariantId = idInput ? parseInt(idInput.value, 10) : {{ product.selected_or_first_available_variant.id }};
+          var qty = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
 
           var items = [{ id: mainVariantId, quantity: qty }];
           checkedAddons.forEach(function(vid) {
             items.push({ id: vid, quantity: 1 });
           });
 
-          if (addToCartText) addToCartText.innerText = 'ADDING...';
+          setLabel('ADDING...');
 
           fetch('/cart/add.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: items })
           })
-          .then(function(res) { return res.json(); })
-          .then(function(data) {
+          .then(function(res) {
+            // fetch only rejects on network failure: /cart/add.js returns 422 for
+            // sold-out or stale variants, which would otherwise look like success.
+            return res.json().then(function(data) {
+              if (!res.ok) {
+                throw new Error(data.description || data.message || 'Add to cart failed');
+              }
+              return data;
+            });
+          })
+          .then(function() {
             updateAddToCartTotal();
-
-            if (window.nuranium && typeof window.nuranium.initMiniCart === 'function') {
-              window.nuranium.initMiniCart();
-            } else if (window.nuranium && typeof window.nuranium.updateMiniCart === 'function') {
-              window.nuranium.updateMiniCart();
-            }
-
-            if (typeof jQuery !== 'undefined') {
-              jQuery('#desktop_cart').addClass('active');
-              jQuery('.sidebar-overlay').addClass('act');
-              jQuery('body').addClass('cart_popup_opened');
-            }
+            refreshCartDrawer();
           })
           .catch(function(err) {
             updateAddToCartTotal();
-            console.error(err);
+            console.error('[paired-addon] add to cart failed:', err);
+            alert(err.message || 'Sorry, this item could not be added to your cart.');
           });
-        }
-      }, true);
+        }, true);
+      });
     }
-  });
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPairedAddon);
+    } else {
+      initPairedAddon();
+    }
+  })();
 </script>
 {% endif %}

@@ -1,5 +1,5 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
-<div class="product-single__stick-add p-2">
+<div class="product-single__stick-add p-2" data-main-form="product-form-{{ section.id }}">
   <div class="container d-flex align-items-center">
     <div class="product__image">
       <img src="{{ product.featured_image.src | image_url: width: 50 }}" width="50" height="{{ 50 | divided_by: product.featured_image.aspect_ratio | round }}" style="height: auto">
