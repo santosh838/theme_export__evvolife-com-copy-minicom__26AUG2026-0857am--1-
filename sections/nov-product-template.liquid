@@ -46,7 +46,7 @@
     elsif settings.type_sidebar_product == 'accordiontwo'
       assign viewtype = 'accordiontwo'
     else
-      assign viewtype = 'accordiontwo'
+      assign viewtype = 'lefttwo'
     endif
   endif
 
@@ -152,7 +152,7 @@
         </div>
       {% endunless %}
 
-      {% unless viewtype contains 'accordion' %}
+      {% unless viewtype contains 'accordion' or viewtype == 'lefttwo' %}
         {% render 'product-single-tab' %}
       {% endunless %}
 
@@ -360,6 +360,22 @@
       "id": "related_limit",
       "label": "Related product limit",
       "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Pincode Delivery Estimator"
+    },
+    {
+      "type": "number",
+      "id": "pincode_min_days",
+      "label": "Minimum Delivery Days",
+      "default": 3
+    },
+    {
+      "type": "number",
+      "id": "pincode_max_days",
+      "label": "Maximum Delivery Days",
+      "default": 5
     },
     {
       "type": "header",

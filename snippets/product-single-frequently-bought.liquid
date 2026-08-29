@@ -1,0 +1,141 @@
+{% comment %}
+  Mostly Paired With Add-on Snippet for Evvolife - Matched to Cumin Co Reference Style
+{% endcomment %}
+
+{% assign addon_product = product.metafields.custom.mostly_paired_with.value | default: product.metafields.custom.mostly_paired_with %}
+{% if addon_product == blank %}
+  {% assign addon_product = collections['all'].products.first %}
+{% endif %}
+{% assign addon_variant = addon_product.selected_or_first_available_variant %}
+
+{% if addon_product and addon_product.available %}
+<div class="mostly-paired-section mt-20 mb-20">
+  <div style="font-size: 14px; font-weight: 700; color: #181818; margin-bottom: 10px;">Mostly Paired With:</div>
+
+  <div class="paired-card d-flex align-items-center justify-content-between p-12 mb-10" style="background: #ffffff; border: 1px solid #e9e9e9; border-radius: 8px; padding: 12px; gap: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
+    <div class="d-flex align-items-center" style="gap: 12px; flex: 1;">
+      <div style="width: 50px; height: 50px; border-radius: 6px; overflow: hidden; border: 1px solid #eee; flex-shrink: 0; background: #ffffff;">
+        <img src="{{ addon_product.featured_image | image_url: width: 100 }}" alt="{{ addon_product.title | escape }}" style="width:100%; height:100%; object-fit:cover; display:block;" />
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; color: #181818; line-height: 1.3;">{{ addon_product.title | truncatewords: 6 }}</div>
+        <div style="font-size: 13px; color: #666; margin-top: 2px;">
+          <strong style="color: #181818;">{{ addon_variant.price | money }}</strong>
+          {% if addon_variant.compare_at_price > addon_variant.price %}
+            <s style="color: #999; margin-left: 4px; font-size: 12px;">{{ addon_variant.compare_at_price | money }}</s>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="paired-checkbox-wrap" style="flex-shrink: 0;">
+      <label class="custom-paired-label" style="position: relative; cursor: pointer; display: flex; align-items: center; margin: 0;">
+        <input type="checkbox" class="paired-addon-checkbox" data-variant-id="{{ addon_variant.id }}" data-price="{{ addon_variant.price }}" style="display: none;" />
+        <span class="custom-paired-box" style="width: 22px; height: 22px; border: 2px solid #908bc3; border-radius: 4px; display: flex; align-items: center; justify-content: center; background: #ffffff; transition: all 0.2s;">
+          <i class="zmdi zmdi-check custom-paired-icon" style="font-size: 15px; color: #ffffff; display: none;"></i>
+        </span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<style>
+  .paired-addon-checkbox:checked + .custom-paired-box {
+    background-color: #908bc3 !important;
+    border-color: #908bc3 !important;
+  }
+  .paired-addon-checkbox:checked + .custom-paired-box .custom-paired-icon {
+    display: block !important;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var mainPriceCents = {{ product.selected_or_first_available_variant.price }};
+    var addToCartBtn = document.getElementById('AddToCart');
+    var addToCartText = document.getElementById('AddToCartText');
+    var checkboxes = document.querySelectorAll('.paired-addon-checkbox');
+
+    function formatMoney(cents) {
+      if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+        return Shopify.formatMoney(cents, theme.moneyFormat);
+      }
+      return 'Rs. ' + (cents / 100).toFixed(2);
+    }
+
+    function updateAddToCartTotal() {
+      if (!addToCartText) return;
+      var totalCents = mainPriceCents;
+
+      checkboxes.forEach(function(cb) {
+        if (cb.checked) {
+          totalCents += parseInt(cb.getAttribute('data-price') || 0);
+        }
+      });
+
+      addToCartText.innerText = 'ADD TO BAG — ' + formatMoney(totalCents);
+    }
+
+    checkboxes.forEach(function(cb) {
+      cb.addEventListener('change', updateAddToCartTotal);
+    });
+
+    updateAddToCartTotal();
+
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', function(e) {
+        var checkedAddons = [];
+        checkboxes.forEach(function(cb) {
+          if (cb.checked) {
+            checkedAddons.push(parseInt(cb.getAttribute('data-variant-id')));
+          }
+        });
+
+        if (checkedAddons.length > 0) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+
+          var mainVariantInput = document.getElementById('variant_id') || document.querySelector('input[name="id"]');
+          var mainVariantId = mainVariantInput ? parseInt(mainVariantInput.value) : {{ product.selected_or_first_available_variant.id }};
+          var qtyInput = document.getElementById('Quantity');
+          var qty = qtyInput ? parseInt(qtyInput.value) : 1;
+
+          var items = [{ id: mainVariantId, quantity: qty }];
+          checkedAddons.forEach(function(vid) {
+            items.push({ id: vid, quantity: 1 });
+          });
+
+          if (addToCartText) addToCartText.innerText = 'ADDING...';
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: items })
+          })
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            updateAddToCartTotal();
+
+            if (window.nuranium && typeof window.nuranium.initMiniCart === 'function') {
+              window.nuranium.initMiniCart();
+            } else if (window.nuranium && typeof window.nuranium.updateMiniCart === 'function') {
+              window.nuranium.updateMiniCart();
+            }
+
+            if (typeof jQuery !== 'undefined') {
+              jQuery('#desktop_cart').addClass('active');
+              jQuery('.sidebar-overlay').addClass('act');
+              jQuery('body').addClass('cart_popup_opened');
+            }
+          })
+          .catch(function(err) {
+            updateAddToCartTotal();
+            console.error(err);
+          });
+        }
+      }, true);
+    }
+  });
+</script>
+{% endif %}

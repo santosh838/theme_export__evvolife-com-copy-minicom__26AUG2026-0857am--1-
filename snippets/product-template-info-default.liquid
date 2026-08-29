@@ -41,13 +41,16 @@
 
   <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" id="product-form-{{ section.id }}">
     {% render 'product-single-variant', current_variant: product.selected_or_first_available_variant %}
+    {% render 'product-single-frequently-bought' %}
     {% render 'product-single-addtocart', current_variant: product.selected_or_first_available_variant %}
   </form>
+
+  {% render 'product-single-pincode-checker' %}
 
   {% render 'product-single-share-ask' %}
   {% render 'product-single-payment-shipping' %}
 
-  {% if viewtype == 'accordiontwo' %}
+  {% if viewtype == 'accordiontwo' or viewtype == 'lefttwo' or viewtype == 'left' %}
     {% render 'product-single-accordion', class: 'mt-45' %}
   {% endif %}
 </div>

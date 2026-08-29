@@ -979,9 +979,12 @@ h1.product-single__title {
 
 @media(min-width: 992px) {
 
-    .product-template__lefttwo .product-single__photos,
+    .product-template__lefttwo .product-single__photos {
+        padding-right: 0;
+    }
+
     .product-template__right .product-single__photos {
-        padding-right: 20px
+        padding-right: 20px;
     }
 
     .lang-rtl .product-template__lefttwo .product-single__photos,

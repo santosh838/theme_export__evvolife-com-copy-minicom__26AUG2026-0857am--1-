@@ -1,0 +1,603 @@
+{{ 'css-aplus_content.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign sst = section.settings
+-%}
+
+{% style %}
+  #shopify-section-{{ section.id }} .nov-aplus-wrapper {
+    padding-top: {{ sst.distance_top_lg }}px;
+    padding-bottom: {{ sst.distance_bottom_lg }}px;
+  }
+  @media (max-width: 991px) {
+    #shopify-section-{{ section.id }} .nov-aplus-wrapper {
+      padding-top: {{ sst.distance_top_md }}px;
+      padding-bottom: {{ sst.distance_bottom_md }}px;
+    }
+  }
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .nov-aplus-wrapper {
+      padding-top: {{ sst.distance_top_sm }}px;
+      padding-bottom: {{ sst.distance_bottom_sm }}px;
+    }
+  }
+{% endstyle %}
+
+{% if sst.enable_aplus %}
+  <div class="nov-aplus-wrapper">
+    <div class="{{ sst.container }}">
+      <div class="nov-aplus-container">
+        {% for block in section.blocks %}
+          {% case block.type %}
+
+            {% when 'hero_banner' %}
+              <div class="aplus-hero-banner" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 1400 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                  />
+                {% else %}
+                  <div
+                    class="placeholder-svg"
+                    style="background:#eee; height:250px; display:flex; align-items:center; justify-content:center;"
+                  >
+                    Hero Lifestyle Banner
+                  </div>
+                {% endif %}
+              </div>
+
+            {% when 'feature_cards' %}
+              <div class="aplus-feature-grid" {{ block.shopify_attributes }}>
+                {% for i in (1..3) %}
+                  {% capture img_key %}card_{{ i }}_img{% endcapture %}
+                  {% capture title_key %}card_{{ i }}_title{% endcapture %}
+                  {% capture text_key %}card_{{ i }}_text{% endcapture %}
+                  {% capture badge_key %}card_{{ i }}_badge{% endcapture %}
+
+                  {% assign card_img = block.settings[img_key] %}
+                  {% assign card_title = block.settings[title_key] %}
+                  {% assign card_text = block.settings[text_key] %}
+                  {% assign card_badge = block.settings[badge_key] %}
+
+                  {% if card_title != blank or card_img != blank %}
+                    <div class="aplus-feature-card">
+                      <div class="card-img-wrap">
+                        {% if card_img != blank %}
+                          <img
+                            src="{{ card_img | image_url: width: 400 }}"
+                            alt="{{ card_title | escape }}"
+                            loading="lazy"
+                          />
+                        {% else %}
+                          <div style="background:#e8e4de; height:180px; display:flex; align-items:center; justify-content:center;">
+                            Feature Image
+                          </div>
+                        {% endif %}
+                        <span class="badge-icon {{ card_badge }}">
+                          {% if card_badge == 'leaf' -%}
+                            <i class="zmdi zmdi-nature"></i>
+                          {%- elsif card_badge == 'flame' -%}
+                            <i class="zmdi zmdi-fire"></i>
+                          {%- else -%}
+                            <i class="zmdi zmdi-shield-check"></i>
+                          {%- endif %}
+                        </span>
+                      </div>
+                      {% if card_title != blank %}
+                        <h4>{{ card_title }}</h4>
+                      {% endif %}
+                      {% if card_text != blank %}
+                        <p>{{ card_text }}</p>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+            {% when 'layer_diagram' %}
+              <div class="aplus-layer-diagram" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 1200 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                  />
+                {% else %}
+                  <div style="background:#f4efe9; padding:40px; text-align:center;">
+                    Multi-Layer Technical Callout Diagram
+                  </div>
+                {% endif %}
+              </div>
+
+            {% when 'artisan_banner' %}
+              <div class="aplus-artisan-banner" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 1400 }}"
+                    alt="Artisan Craftsmanship"
+                    loading="lazy"
+                  />
+                {% else %}
+                  <div style="background:#222; color:#fff; padding:60px; text-align:center;">
+                    Artisan Foundry & Craftsmanship Showcase
+                  </div>
+                {% endif %}
+              </div>
+
+            {% when 'side_profile_banner' %}
+              <div class="aplus-profile-banner" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 1400 }}"
+                    alt="Sleek Side Profile"
+                    loading="lazy"
+                  />
+                {% else %}
+                  <div style="background:#111; color:#fff; padding:50px; text-align:center;">
+                    Sleek Side Profile Showcase
+                  </div>
+                {% endif %}
+              </div>
+
+            {% when 'food_grid' %}
+              <div class="aplus-food-grid" {{ block.shopify_attributes }}>
+                {% for i in (1..5) %}
+                  {% capture img_key %}food_{{ i }}_img{% endcapture %}
+                  {% capture title_key %}food_{{ i }}_title{% endcapture %}
+
+                  {% assign food_img = block.settings[img_key] %}
+                  {% assign food_title = block.settings[title_key] %}
+
+                  <div class="aplus-food-item">
+                    {% if food_img != blank %}
+                      <img
+                        src="{{ food_img | image_url: width: 250 }}"
+                        alt="{{ food_title | escape }}"
+                        loading="lazy"
+                      />
+                    {% else %}
+                      <div style="background:#e8e4de; height:100px; border-radius:6px; margin-bottom:6px; display:flex; align-items:center; justify-content:center;">
+                        Food {{ i }}
+                      </div>
+                    {% endif %}
+                    {% if food_title != blank -%}
+                      <span>{{ food_title }}</span>
+                    {%- endif %}
+                  </div>
+                {% endfor %}
+              </div>
+
+            {% when 'care_card' %}
+              <div class="aplus-care-card" {{ block.shopify_attributes }}>
+                <div class="care-text">
+                  <h4>{{ block.settings.title | default: 'Care & Maintenance Highlights' }}</h4>
+                  <p>
+                    {{
+                      block.settings.text
+                      | default: 'Easy to clean, non-stick performance that improves over time with proper seasoning.'
+                    }}
+                  </p>
+                </div>
+                <div class="care-img">
+                  {% if block.settings.image != blank %}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 500 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      loading="lazy"
+                    />
+                  {% else %}
+                    <div style="background:#e8e4de; height:180px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                      Surface Close-up Image
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+
+            {% when 'flatlay_banner' %}
+              <div class="aplus-flatlay-banner" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 1400 }}"
+                    alt="Flatlay Kit Breakdown"
+                    loading="lazy"
+                  />
+                {% else %}
+                  <div style="background:#f4efe9; padding:50px; text-align:center;">
+                    Flatlay Accessories & Care Kit Breakdown
+                  </div>
+                {% endif %}
+              </div>
+
+            {% when 'comparison_table' %}
+              <div class="aplus-comparison-section" {{ block.shopify_attributes }}>
+                <div class="aplus-comparison-header">
+                  <div class="aplus-comparison-col us-col">
+                    {% if block.settings.us_img != blank %}
+                      <img
+                        src="{{ block.settings.us_img | image_url: width: 300 }}"
+                        alt="{{ block.settings.us_title }}"
+                        loading="lazy"
+                      />
+                    {% endif %}
+                    <h5>{{ block.settings.us_title | default: 'Evvolife Cast Iron' }}</h5>
+                  </div>
+                  <div class="aplus-comparison-col">
+                    {% if block.settings.them_img != blank %}
+                      <img
+                        src="{{ block.settings.them_img | image_url: width: 300 }}"
+                        alt="{{ block.settings.them_title }}"
+                        loading="lazy"
+                      />
+                    {% endif %}
+                    <h5>{{ block.settings.them_title | default: 'Standard Cookware' }}</h5>
+                  </div>
+                </div>
+
+                <div class="aplus-comparison-list">
+                  <div class="us-list">
+                    <div class="aplus-comparison-item">
+                      <span class="icon-check">✓</span> <span>100% Natural Pre-seasoned</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-check">✓</span> <span>Chemical-free & Toxin-free</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-check">✓</span> <span>Heats evenly & Retains heat</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-check">✓</span> <span>Lifetime Durability</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-check">✓</span> <span>Adds natural iron to food</span>
+                    </div>
+                  </div>
+                  <div class="them-list">
+                    <div class="aplus-comparison-item">
+                      <span class="icon-cross">✕</span> <span>Synthetic Non-stick coating</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-cross">✕</span> <span>Contains Teflon / PTFE</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-cross">✕</span> <span>Uneven hotspot heating</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-cross">✕</span> <span>Peels off in 1-2 years</span>
+                    </div>
+                    <div class="aplus-comparison-item">
+                      <span class="icon-cross">✕</span> <span>Zero health benefits</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            {% when 'dimension_blueprint' %}
+              <div class="aplus-dimension-section" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 1000 }}"
+                    alt="Technical Dimensions"
+                    loading="lazy"
+                  />
+                {% else %}
+                  <div style="background:#ffffff; border:1px dashed #ccc; padding:40px; text-align:center;">
+                    Technical Dimensions & Specs Blueprint
+                  </div>
+                {% endif %}
+              </div>
+
+            {% when 'video_reels' %}
+              <div class="aplus-reels-section" {{ block.shopify_attributes }}>
+                <div class="aplus-reels-title">{{ block.settings.title | default: "Customer Stories & Video Reels" }}</div>
+                <div class="aplus-reels-grid">
+                  {% for i in (1..4) %}
+                    {% capture img_key %}reel_{{ i }}_img{% endcapture %}
+                    {% capture name_key %}reel_{{ i }}_name{% endcapture %}
+
+                    {% assign reel_img = block.settings[img_key] %}
+                    {% assign reel_name = block.settings[name_key] %}
+
+                    <div class="aplus-reel-card">
+                      {% if reel_img != blank %}
+                        <img src="{{ reel_img | image_url: width: 350 }}" alt="{{ reel_name | escape }}" loading="lazy" />
+                      {% else %}
+                        <div style="background:#222; height:220px; display:flex; align-items:center; justify-content:center; color:#fff;">Reel {{ i }}</div>
+                      {% endif %}
+                      <div class="aplus-reel-play-btn"><i class="zmdi zmdi-play"></i></div>
+                      <div class="aplus-reel-username">{{ reel_name | default: "@evvolife_cook" }}</div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+            {% when 'recipe_grid' %}
+              <div class="aplus-recipe-section" {{ block.shopify_attributes }}>
+                <div class="aplus-recipe-title">{{ block.settings.title | default: "Recipes You Can Cook" }}</div>
+                <div class="aplus-recipe-grid">
+                  {% for i in (1..4) %}
+                    {% capture img_key %}recipe_{{ i }}_img{% endcapture %}
+                    {% capture title_key %}recipe_{{ i }}_title{% endcapture %}
+
+                    {% assign recipe_img = block.settings[img_key] %}
+                    {% assign recipe_title = block.settings[title_key] %}
+
+                    <div class="aplus-recipe-card">
+                      {% if recipe_img != blank %}
+                        <img src="{{ recipe_img | image_url: width: 300 }}" alt="{{ recipe_title | escape }}" loading="lazy" />
+                      {% else %}
+                        <div style="background:#e8e4de; height:120px; border-radius:6px; margin-bottom:8px; display:flex; align-items:center; justify-content:center;">Recipe {{ i }}</div>
+                      {% endif %}
+                      <span class="step-number">{{ i }}</span>
+                      <h5>{{ recipe_title | default: "Crispy Dosa" }}</h5>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "A+ Product Listing",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_aplus",
+      "label": "Enable A+ Product Listing Content",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Width",
+      "default": "container",
+      "options": [
+        { "value": "container", "label": "Container" },
+        { "value": "container-fluid", "label": "Container fluid" },
+        { "value": "container-full", "label": "Container full width" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Spacing Top (px)"
+    },
+    {
+      "type": "number",
+      "id": "distance_top_lg",
+      "label": "Desktop Top Spacing",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "distance_top_md",
+      "label": "Tablet Top Spacing",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "distance_top_sm",
+      "label": "Mobile Top Spacing",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Spacing Bottom (px)"
+    },
+    {
+      "type": "number",
+      "id": "distance_bottom_lg",
+      "label": "Desktop Bottom Spacing",
+      "default": 30
+    },
+    {
+      "type": "number",
+      "id": "distance_bottom_md",
+      "label": "Tablet Bottom Spacing",
+      "default": 20
+    },
+    {
+      "type": "number",
+      "id": "distance_bottom_sm",
+      "label": "Mobile Bottom Spacing",
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_banner",
+      "name": "Hero Lifestyle Banner",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Banner Image" },
+        { "type": "text", "id": "title", "label": "Title" }
+      ]
+    },
+    {
+      "type": "feature_cards",
+      "name": "3-Feature Cards Grid",
+      "settings": [
+        { "type": "header", "content": "Card 1" },
+        { "type": "image_picker", "id": "card_1_img", "label": "Card 1 Image" },
+        { "type": "text", "id": "card_1_title", "label": "Card 1 Title", "default": "100% Natural" },
+        {
+          "type": "text",
+          "id": "card_1_text",
+          "label": "Card 1 Text",
+          "default": "Pre-seasoned with organic vegetable oil."
+        },
+        {
+          "type": "select",
+          "id": "card_1_badge",
+          "label": "Card 1 Icon Badge",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "flame", "label": "Flame" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "leaf"
+        },
+
+        { "type": "header", "content": "Card 2" },
+        { "type": "image_picker", "id": "card_2_img", "label": "Card 2 Image" },
+        { "type": "text", "id": "card_2_title", "label": "Card 2 Title", "default": "High Heat Retention" },
+        {
+          "type": "text",
+          "id": "card_2_text",
+          "label": "Card 2 Text",
+          "default": "Distributes heat evenly for perfect cooking."
+        },
+        {
+          "type": "select",
+          "id": "card_2_badge",
+          "label": "Card 2 Icon Badge",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "flame", "label": "Flame" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "flame"
+        },
+
+        { "type": "header", "content": "Card 3" },
+        { "type": "image_picker", "id": "card_3_img", "label": "Card 3 Image" },
+        { "type": "text", "id": "card_3_title", "label": "Card 3 Title", "default": "Built to Last" },
+        {
+          "type": "text",
+          "id": "card_3_text",
+          "label": "Card 3 Text",
+          "default": "Heavy duty cast iron crafted for generations."
+        },
+        {
+          "type": "select",
+          "id": "card_3_badge",
+          "label": "Card 3 Icon Badge",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "flame", "label": "Flame" },
+            { "value": "shield", "label": "Shield" }
+          ],
+          "default": "shield"
+        }
+      ]
+    },
+    {
+      "type": "layer_diagram",
+      "name": "Multi-layer Diagram",
+      "settings": [{ "type": "image_picker", "id": "image", "label": "Layer Diagram Image" }]
+    },
+    {
+      "type": "artisan_banner",
+      "name": "Artisan Craft Banner",
+      "settings": [{ "type": "image_picker", "id": "image", "label": "Artisan Banner Image" }]
+    },
+    {
+      "type": "side_profile_banner",
+      "name": "Sleek Side Profile Banner",
+      "settings": [{ "type": "image_picker", "id": "image", "label": "Side Profile Banner Image" }]
+    },
+    {
+      "type": "food_grid",
+      "name": "Multi Food Grid - 5 Items",
+      "settings": [
+        { "type": "image_picker", "id": "food_1_img", "label": "Food 1 Image" },
+        { "type": "text", "id": "food_1_title", "label": "Food 1 Title", "default": "Dosa / Crepe" },
+        { "type": "image_picker", "id": "food_2_img", "label": "Food 2 Image" },
+        { "type": "text", "id": "food_2_title", "label": "Food 2 Title", "default": "Pizza" },
+        { "type": "image_picker", "id": "food_3_img", "label": "Food 3 Image" },
+        { "type": "text", "id": "food_3_title", "label": "Food 3 Title", "default": "Omelette" },
+        { "type": "image_picker", "id": "food_4_img", "label": "Food 4 Image" },
+        { "type": "text", "id": "food_4_title", "label": "Food 4 Title", "default": "Roti" },
+        { "type": "image_picker", "id": "food_5_img", "label": "Food 5 Image" },
+        { "type": "text", "id": "food_5_title", "label": "Food 5 Title", "default": "Stove / Oven" }
+      ]
+    },
+    {
+      "type": "care_card",
+      "name": "Care & Maintenance Card",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Care & Maintenance Highlights" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text Description",
+          "default": "Easy to clean, non-stick performance that improves over time with proper seasoning."
+        },
+        { "type": "image_picker", "id": "image", "label": "Surface Texture Image" }
+      ]
+    },
+    {
+      "type": "flatlay_banner",
+      "name": "Flatlay Kit Breakdown",
+      "settings": [{ "type": "image_picker", "id": "image", "label": "Flatlay Image" }]
+    },
+    {
+      "type": "comparison_table",
+      "name": "Us vs. Them Comparison",
+      "settings": [
+        { "type": "text", "id": "us_title", "label": "Our Product Title", "default": "Evvolife Cast Iron" },
+        { "type": "image_picker", "id": "us_img", "label": "Our Product Image" },
+        { "type": "text", "id": "them_title", "label": "Competitor Title", "default": "Standard Non-Stick" },
+        { "type": "image_picker", "id": "them_img", "label": "Competitor Image" }
+      ]
+    },
+    {
+      "type": "dimension_blueprint",
+      "name": "Technical Blueprint Specs",
+      "settings": [{ "type": "image_picker", "id": "image", "label": "Blueprint Diagram Image" }]
+    },
+    {
+      "type": "video_reels",
+      "name": "Customer Video Reels",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Section Title", "default": "Customer Stories & Video Reels" },
+        { "type": "image_picker", "id": "reel_1_img", "label": "Reel 1 Image" },
+        { "type": "text", "id": "reel_1_name", "label": "Reel 1 User", "default": "@chef_priya" },
+        { "type": "image_picker", "id": "reel_2_img", "label": "Reel 2 Image" },
+        { "type": "text", "id": "reel_2_name", "label": "Reel 2 User", "default": "@evvocooking" },
+        { "type": "image_picker", "id": "reel_3_img", "label": "Reel 3 Image" },
+        { "type": "text", "id": "reel_3_name", "label": "Reel 3 User", "default": "@healthykitchen" },
+        { "type": "image_picker", "id": "reel_4_img", "label": "Reel 4 Image" },
+        { "type": "text", "id": "reel_4_name", "label": "Reel 4 User", "default": "@homecook_love" }
+      ]
+    },
+    {
+      "type": "recipe_grid",
+      "name": "4-Step Recipe Cards",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Section Title", "default": "Recipes You Can Cook" },
+        { "type": "image_picker", "id": "recipe_1_img", "label": "Recipe 1 Image" },
+        { "type": "text", "id": "recipe_1_title", "label": "Recipe 1 Title", "default": "Crispy Dosa" },
+        { "type": "image_picker", "id": "recipe_2_img", "label": "Recipe 2 Image" },
+        { "type": "text", "id": "recipe_2_title", "label": "Recipe 2 Title", "default": "Artisanal Pizza" },
+        { "type": "image_picker", "id": "recipe_3_img", "label": "Recipe 3 Image" },
+        { "type": "text", "id": "recipe_3_title", "label": "Recipe 3 Title", "default": "Fluffy Paratha" },
+        { "type": "image_picker", "id": "recipe_4_img", "label": "Recipe 4 Image" },
+        { "type": "text", "id": "recipe_4_title", "label": "Recipe 4 Title", "default": "Golden Omelette" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "A+ Product Listing",
+      "blocks": [
+        { "type": "hero_banner" },
+        { "type": "feature_cards" },
+        { "type": "video_reels" },
+        { "type": "layer_diagram" },
+        { "type": "artisan_banner" },
+        { "type": "recipe_grid" },
+        { "type": "care_card" },
+        { "type": "flatlay_banner" },
+        { "type": "comparison_table" },
+        { "type": "dimension_blueprint" }
+      ]
+    }
+  ]
+}
+{% endschema %}

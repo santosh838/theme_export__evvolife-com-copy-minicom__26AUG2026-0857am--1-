@@ -108,26 +108,25 @@
       {% endif %}
     </div>
     {%- liquid 
-      assign freeshipping_value         = settings.free_shipping | plus: 0
-      assign price_without_currency     = cart.total_price | money_without_currency
-      unless "EUR INR ANG ARS BRL BYN BYR CLF CLP COP CRC CZK DKK EUR HRK HUF IDR ISK MZN NOK PLN RON RUB SEK TRY UYU VES VND" contains shop.currency
-        assign price                    = price_without_currency | replace: ',' | plus: 0
-      else
-        assign price                    = price_without_currency | replace: '.' | plus: 0
-      endunless
-      assign spend_value = freeshipping_value | minus: price | times: 100 | money
+      assign freeshipping_cents = settings.free_shipping | times: 100
+      assign current_cart_price = cart.total_price
     -%}
-    {% if price < freeshipping_value %}
+    {% if current_cart_price < freeshipping_cents %}
+      {% liquid
+        assign diff_cents = freeshipping_cents | minus: current_cart_price
+        assign spend_value = diff_cents | money
+        assign progress_pct = current_cart_price | times: 100 | divided_by: freeshipping_cents | round: 0
+      %}
       <div id="threshold_bar_popup_minicart"{% if settings.freeshipping_enable == false %} class="d-none"{% endif %}>
         <div class="cart_threshold">
           <div class="threshold_spend">{{ 'cart.general.spend_html' | t: spend: spend_value }}</div>
           <div class="threshold_bar">
-            <span class="animate" style="width:{{ price | times: 100 | divided_by: freeshipping_value | round: 0 }}%!important">
+            <span class="animate" style="width:{{ progress_pct }}%!important">
               <span><i class="rbb-icon-delivery-11"></i></span>
             </span>
           </div>
         </div>
-    </div>
+      </div>
     {% else %}
       <div id="threshold_bar_popup_minicart"{% if settings.freeshipping_enable == false %} class="d-none"{% endif %}>
         <div class="threshold_spend spend_congrats"><span>{{ 'cart.general.content_threshold' | t }}<i class="rbb-icon-delivery-11"></i></span></div>

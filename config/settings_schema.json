@@ -268,7 +268,7 @@
             "label": "Product tab accordion 2"
           }
         ],
-        "default": "default"
+        "default": "lefttwo"
       },
       {
         "type": "select",
